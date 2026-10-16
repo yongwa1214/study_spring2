@@ -1,9 +1,8 @@
-package com.example.socal.config;
+package com.example.social.config;
 
-import com.example.socal.service.CustomOAuth2UserService;
+import com.example.social.service.CustomOAuth2UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;

@@ -1,4 +1,4 @@
-package com.example.socal.dto;
+package com.example.social.dto;
 
 import lombok.Builder;
 import lombok.Getter;
