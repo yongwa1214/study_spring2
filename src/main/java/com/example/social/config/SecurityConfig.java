@@ -1,6 +1,10 @@
 package com.example.social.config;
 
+import com.example.social.jwt.JwtUtil;
+import com.example.social.oauth2.CustomSuccessHandler;
 import com.example.social.service.CustomOAuth2UserService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,12 +14,16 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity // .yaml이나 메인메소드에 비활성화 설정을 하지 않았으면 적지 않아도 됨
+@RequiredArgsConstructor
 public class SecurityConfig {
         private final CustomOAuth2UserService customOAuth2UserService;
+        private final CustomSuccessHandler customSuccessHandler;
+        private final JwtUtil jwtUtil;
 
-        public SecurityConfig(CustomOAuth2UserService customOAuth2UserService) {
-            this.customOAuth2UserService = customOAuth2UserService;
-        }
+//        public SecurityConfig(CustomOAuth2UserService customOAuth2UserService) {
+//            this.customOAuth2UserService = customOAuth2UserService;
+//        }
+
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -35,7 +43,8 @@ public class SecurityConfig {
             http
                     .oauth2Login(oauth2 -> oauth2
                             .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
-                                    .userService(customOAuth2UserService)));
+                                    .userService(customOAuth2UserService))
+                            .successHandler(customSuccessHandler));
 
             //경로별 인가 작업
             http
